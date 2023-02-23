@@ -2,6 +2,7 @@
 
 **Multilingual OpenCLIP**: [![Multilingual OpenCLIP](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1zlGkbQh7ny9LKrMLNXtA6VDB151zxl_0?usp=sharing)
 
+## Dataset
 
 **Preprocessing:**
 
@@ -10,8 +11,12 @@
 - Write the "file_name" and "text" in jsonl file as recommended from HF.
 - Upload the dataset to HF dataset hub.
 
+References: 
 
-**Model training**:
+- Uploading the dataset to HF hub, [here](https://huggingface.co/docs/datasets/upload_dataset#upload-with-python).
+- Dataset in HF hub, [here](https://huggingface.co/datasets/arbml/Calliar_dataset).
+
+## Model training:
 
 - Creating venv using venv in python.
 - Install the diffusers using these instructions: [https://github.com/huggingface/diffusers/tree/main/examples/text_to_image#installing-the-dependencies](https://github.com/huggingface/diffusers/tree/main/examples/text_to_image#installing-the-dependencies).
@@ -37,3 +42,5 @@ accelerate launch --mixed_precision="fp16"  train_text_to_image.py \
   --output_dir="calliar_1" 
   ```
   
+  - References:
+  - The model and the latest checkpoint, [here](https://huggingface.co/arbml/CalliarGen).
