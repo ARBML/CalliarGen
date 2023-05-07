@@ -34,7 +34,7 @@ font_names_en = ['diwani decorated', 'diwani diacritized', 'diwani long', 'diwan
 for i in range(20):
     print(font_names[i], font_names_en[i])
 
-max_words = 500
+max_words = 10
 train_samples, valid_samples, test_samples = get_samples(max_words = max_words)
 dataset = {'train': train_samples, 'valid': valid_samples, 'test': test_samples}
 from PIL import Image
@@ -48,7 +48,7 @@ from tqdm.auto import tqdm
 
 # !rm -r data_10k_mulfont_64x64_en
 
-W, H = (64, 64)
+W, H = (128, 128)
 features = []
 i = 0
 path_to_data = f"data_10k_mulfont_{W}x{H}_en"
@@ -83,7 +83,7 @@ for split in dataset:
                 word = word[:rnd_idx] + ' ' + word[rnd_idx:]
 
             draw = ImageDraw.Draw(img)
-            font, w, h, x, y = get_font(draw, word, font_type)
+            font, w, h, x, y = get_font(draw, word, font_type, width=W, height=H)
             draw.text((x, y), word, (0, 0, 0), font)
             file_name = f"{word}_{i:05d}"
             img.save(f"{path_to_data}/{split}/{file_name}.png")
@@ -140,7 +140,7 @@ def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max
     font_size = None   # for font size
     font = None        # for object truetype with correct font size
     box = None         # for version 8.0.0
-    w, h = 64, 64
+    w, h = width, height
     x, y = 0, 0
         
     while 1:
@@ -158,25 +158,3 @@ def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max
             y = (height - h)//2 - box[1]  # minus top margin
             break
     return font, w, h, x, y
-
-
-text = "جميل"
-
-font_name = "fonts/03.ttf"
-
-# --- create image for text ---
-
-img = Image.new('RGB', (width, height), (200, 255, 255))
-draw = ImageDraw.Draw(img)
-
-# --- calculate font size, box ---
-
-font, w, h, x, y = get_font(draw, text, font_name)
-
-draw.text((x, y), text, (0, 0, 0), font)
-
-plt.imshow(img)
-plt.show()
-# -
-
-
