@@ -1,12 +1,35 @@
 # https://stackoverflow.com/questions/65494932/imagedraw-adapt-font-size-dynamically-to-text-length
 from PIL import Image, ImageDraw, ImageFont
 import random
+import numpy as np
+from numpy.random import choice
+import json 
+from random import shuffle
+
+def get_samples(max_words= 1000, seed = 4):
+    with open('words_freq.txt', 'r') as f:
+        data = json.load(f)
+    words = list(data.keys())
+    freqs = list(data.values())
+    total = sum(freqs)
+    random.seed(seed)
+    np.random.seed(seed)
+    freqs = [freq / total for freq in freqs]
+    samples= choice(words, p = freqs, size =max_words,  replace = False)
+    shuffle(samples)
+    train_size = int(0.8 * max_words)
+    test_eval_size  = (max_words - train_size)//2
+    train_samples = samples[:train_size]
+    valid_samples = samples[-2*test_eval_size:-test_eval_size]
+    test_samples =  samples[-test_eval_size:]
+    return train_samples, valid_samples, test_samples
+
 def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max_size = 100):
     # default values at start
     font_size = None   # for font size
     font = None        # for object truetype with correct font size
     box = None         # for version 8.0.0
-    w, h = 64, 64
+    w, h = width, height
     x, y = 0, 0
         
     while 1:
