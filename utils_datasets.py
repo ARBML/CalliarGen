@@ -24,7 +24,7 @@ def get_samples(max_words= 1000, seed = 4):
     test_samples =  samples[-test_eval_size:]
     return train_samples, valid_samples, test_samples
 
-def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max_size = 100):
+def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max_size = 100, n_attempts = 10):
     # default values at start
     font_size = None   # for font size
     font = None        # for object truetype with correct font size
@@ -32,7 +32,7 @@ def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max
     w, h = width, height
     x, y = 0, 0
         
-    while 1:
+    for i in range(n_attempts - 1):
         r_font_size = random.randint(min_size, max_size)
         # create new font
         font = ImageFont.truetype(font_name, r_font_size)
@@ -46,4 +46,8 @@ def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max
             x = (width - w)//2 - box[0]   # minus left margin
             y = (height - h)//2 - box[1]  # minus top margin
             break
+        else:
+            max_size = max_size - 10
+    else:
+        return None,w,h,x,y
     return font, w, h, x, y
