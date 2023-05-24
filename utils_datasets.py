@@ -51,3 +51,39 @@ def get_font(draw, text, font_name, width = 64, height = 64, min_size = 10,  max
     else:
         return None,w,h,x,y
     return font, w, h, x, y
+
+def get_font_fixed_scale(draw, text, font_name, width = 64, height = 64, min_size = 10,  max_size = 100, n_attempts = 10, margins = (0, 0)):
+    # default values at start
+    font_size = None   # for font size
+    font = None        # for object truetype with correct font size
+    box = None         # for version 8.0.0
+    w, h = width, height
+    x, y = 0, 0
+    ow, oh = w, h
+    ox, oy = 0, 0
+    ofont = None
+
+    for font_size in range(min_size, max_size):
+        # create new font
+        font = ImageFont.truetype(font_name, font_size)
+        # calculate bbox for version 8.0.0
+        box = draw.textbbox((0, 0), text, font)  # need 8.0.0
+        # `bbox` may have top/left margin so calculate real width/height
+        w = box[2] - box[0]  # bottom-top
+        h = box[3] - box[1]  # right-left
+        # if too big then exit with previous values
+        if w+margins[0] < width and h+margins[1] < height:
+            x = (width - w)//2 - box[0]   # minus left margin
+            y = (height - h)//2 - box[1]  # minus top margin
+            ox, oy = x, y
+            ow, oh = w, h
+            ofont = font
+        else:
+            x, y = ox, oy
+            w, h = ow, oh
+            font = ofont
+            break
+        
+    else:
+        return None,w,h,x,y
+    return font, w, h, x, y
