@@ -1,6 +1,14 @@
 # CalliarGen
 
-**Multilingual OpenCLIP**: [![Multilingual OpenCLIP](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1zlGkbQh7ny9LKrMLNXtA6VDB151zxl_0?usp=sharing)
+**Word-To-Image: Morphing Arabic Text to a Visual Representation**
+
+[![Huggingface Space](https://img.shields.io/badge/🤗-Demo%20-yellow.svg)](https://huggingface.co/spaces/bkhmsi/Word-To-Image)
+[![Colab Notebook](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1wobOAsnLpkIzaRxG5yac8NcV7iCrlycP)
+[![GitHub](https://img.shields.io/badge/💻-GitHub%20-black.svg)](https://github.com/BKHMSI/Word-To-Image)
+
+**Multilingual OpenCLIP** <br>
+[![Multilingual OpenCLIP](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1zlGkbQh7ny9LKrMLNXtA6VDB151zxl_0?usp=sharing)
+
 
 ## Dataset
 
